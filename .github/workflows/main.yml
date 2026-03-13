@@ -34,11 +34,12 @@ jobs:
 
       - name: Prepare and Build
         run: |
-          # Agora usando o nome que o seu 'ls' mostrou: AnaliseDash.py
-          cp AnaliseDash.py ./main_app.py
+          # 1. Renomeia o seu arquivo para main.py (o que o Flet exige)
+          cp AnaliseDash.py main.py
           
-          # Builda o arquivo
-          flet build apk main_app.py
+          # 2. Executa o build apontando para o diretório atual
+          # O ponto '.' indica que o main.py está aqui
+          flet build apk .
 
       - name: Upload APK
         uses: actions/upload-artifact@v4
