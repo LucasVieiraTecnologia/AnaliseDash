@@ -6,7 +6,7 @@ jobs:
     runs-on: ubuntu-latest
     env:
       FORCE_JAVASCRIPT_ACTIONS_TO_NODE24: true
-    steps: 
+    steps:
       - name: Checkout code
         uses: actions/checkout@v4
 
@@ -34,11 +34,16 @@ jobs:
 
       - name: Prepare and Build
         run: |
-          # 1. Encontra o arquivo não importa onde ele esteja e move para a raiz real
-          FILE_FOUND=$(find . -name "DashAnalise.py" -print -quit)
-          cp "$FILE_FOUND" ./main_app.py
+          # Vamos listar os arquivos para você ver no log o que está acontecendo
+          echo "Listando arquivos no diretório atual:"
+          ls -R
           
-          # 2. Executa o build no arquivo que acabamos de colocar na raiz
+          # Tenta copiar o arquivo de qualquer lugar para a raiz
+          # O glob ** garante que ele procure em todas as subpastas
+          shopt -s globstar
+          cp **/DashAnalise.py ./main_app.py || cp DashAnalise.py ./main_app.py
+          
+          # Builda o arquivo
           flet build apk main_app.py
 
       - name: Upload APK
@@ -46,5 +51,3 @@ jobs:
         with:
           name: calculadora-skins-dash
           path: "**/build/apk/*.apk"
-
-          
