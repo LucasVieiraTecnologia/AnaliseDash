@@ -5,7 +5,6 @@ jobs:
   build:
     runs-on: ubuntu-latest
     env:
-      # Resolve o aviso de depreciação do Node.js 20
       FORCE_JAVASCRIPT_ACTIONS_TO_NODE24: true
     steps:
       - name: Checkout code
@@ -33,17 +32,17 @@ jobs:
       - name: Install Flet
         run: pip install flet
 
-      - name: Build APK
+      - name: Prepare and Build
         run: |
-          # Comando para encontrar onde o arquivo está e entrar na pasta antes do build
-          FILE_PATH=$(find . -name "AnaliseDash.py" -print -quit)
-          DIR_PATH=$(dirname "$FILE_PATH")
-          cd "$DIR_PATH"
-          flet build apk AnaliseDash.py
+          # 1. Encontra o arquivo não importa onde ele esteja e move para a raiz real
+          FILE_FOUND=$(find . -name "AnaliseDash.py" -print -quit)
+          cp "$FILE_FOUND" ./main_app.py
+          
+          # 2. Executa o build no arquivo que acabamos de colocar na raiz
+          flet build apk main_app.py
 
       - name: Upload APK
         uses: actions/upload-artifact@v4
         with:
           name: calculadora-skins-dash
-          # Busca o APK onde quer que ele tenha sido gerado
           path: "**/build/apk/*.apk"
