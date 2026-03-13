@@ -19,17 +19,19 @@ jobs:
         with:
           channel: 'stable'
 
+      - name: Accept Android Licenses
+        run: yes | sdkmanager --licenses || true
+
       - name: Set up Python
         uses: actions/setup-python@v5
         with:
           python-version: '3.11'
 
-      - name: Install Dependencies
-        run: |
-          pip install flet
+      - name: Install Flet
+        run: pip install flet
 
       - name: Build APK
-        # Removido o --target e corrigido para AnaliseDash.py
+        # O ponto '.' indica que o comando deve olhar na raiz atual
         run: flet build apk AnaliseDash.py
 
       - name: Upload APK
