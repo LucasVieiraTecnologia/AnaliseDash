@@ -34,11 +34,10 @@ jobs:
 
       - name: Prepare and Build
         run: |
-          # 1. Renomeia o seu arquivo para main.py (o que o Flet exige)
+          # Criando o main.py a partir do seu arquivo AnaliseDash.py
           cp AnaliseDash.py main.py
           
-          # 2. Executa o build apontando para o diretório atual
-          # O ponto '.' indica que o main.py está aqui
+          # Iniciando o build no diretório atual
           flet build apk .
 
       - name: Upload APK
