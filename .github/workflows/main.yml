@@ -35,7 +35,7 @@ jobs:
       - name: Prepare and Build
         run: |
           # 1. Encontra o arquivo não importa onde ele esteja e move para a raiz real
-          FILE_FOUND=$(find . -name "AnaliseDash.py" -print -quit)
+          FILE_FOUND=$(find . -name "DashAnalise.py" -print -quit)
           cp "$FILE_FOUND" ./main_app.py
           
           # 2. Executa o build no arquivo que acabamos de colocar na raiz
