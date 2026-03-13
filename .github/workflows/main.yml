@@ -34,14 +34,8 @@ jobs:
 
       - name: Prepare and Build
         run: |
-          # Vamos listar os arquivos para você ver no log o que está acontecendo
-          echo "Listando arquivos no diretório atual:"
-          ls -R
-          
-          # Tenta copiar o arquivo de qualquer lugar para a raiz
-          # O glob ** garante que ele procure em todas as subpastas
-          shopt -s globstar
-          cp **/DashAnalise.py ./main_app.py || cp DashAnalise.py ./main_app.py
+          # Agora usando o nome que o seu 'ls' mostrou: AnaliseDash.py
+          cp AnaliseDash.py ./main_app.py
           
           # Builda o arquivo
           flet build apk main_app.py
